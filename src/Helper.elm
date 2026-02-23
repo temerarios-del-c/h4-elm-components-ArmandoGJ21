@@ -19,16 +19,40 @@ evalChars chars predicate =
     List.map predicate chars
 
 
+type HeaderLevel
+    = H1
+    | H2
+    | H3
+    | H4
+    | H5
+    | H6
+
+
 headers : String -> Html msg
 headers content =
-    div []
-        [ h1 [] [ text content ]
-        , h2 [] [ text content ]
-        , h3 [] [ text content ]
-        , h4 [] [ text content ]
-        , h5 [] [ text content ]
-        , h6 [] [ text content ]
-        ]
+    let
+        renderHeader : HeaderLevel -> Html msg
+        renderHeader level =
+            case level of
+                H1 ->
+                    h1 [] [ text content ]
+
+                H2 ->
+                    h2 [] [ text content ]
+
+                H3 ->
+                    h3 [] [ text content ]
+
+                H4 ->
+                    h4 [] [ text content ]
+
+                H5 ->
+                    h5 [] [ text content ]
+
+                H6 ->
+                    h6 [] [ text content ]
+    in
+    div [] (List.map renderHeader [ H1, H2, H3, H4, H5, H6 ])
 
 
 hyperlink : String -> String -> Html msg
